@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 import { ReactComponent as ColorPickerIcon } from "../../assets/colorize-24.svg";
 import { ReactComponent as DropIcon } from "../../assets/drop-24.svg";
@@ -11,13 +11,8 @@ import {
   ColorTextValue,
 } from "./SelectColorBox.styles";
 
-const SelectColorBox = () => {
-  const [value, setValue] = useState("");
+const SelectColorBox = ({ color, onChangeHandler }) => {
   const myColorInput = useRef(null);
-
-  const handleValueChange = (event) => {
-    setValue(event.target.value);
-  };
 
   const handlePickerIconClick = () => {
     myColorInput.current.click();
@@ -27,9 +22,9 @@ const SelectColorBox = () => {
     <Container>
       <Label>Card background color:</Label>
       <ColorInputContainer>
-        <Input type={"color"} onChange={handleValueChange} ref={myColorInput} />
-        <DropIcon fill={value} />
-        <ColorTextValue>{value ? value : "Select color"}</ColorTextValue>
+        <Input type={"color"} onChange={onChangeHandler} ref={myColorInput} />
+        <DropIcon fill={color} />
+        <ColorTextValue>{color ? color : "Select color"}</ColorTextValue>
         <ColorPickerIcon onClick={handlePickerIconClick} />
       </ColorInputContainer>
     </Container>
