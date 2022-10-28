@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  fontColor,
-  mainColor,
-  mainColorShade,
-  mainColorTint,
-} from "../../utils/styleVariables";
+import { mainColorShade } from "../../utils/styleVariables";
 
 export const Container = styled.div`
   display: flex;
@@ -18,6 +13,11 @@ export const Container = styled.div`
 
   box-shadow: 0 0.8rem 3rem ${mainColorShade};
   border-radius: 1.2rem;
+  color: ${({ fontColor }) => fontColor};
+
+
+  svg {
+    fill: ${({ fontColor }) => fontColor};
 `;
 
 export const Header = styled.div`
@@ -54,7 +54,7 @@ export const InfoItem = styled.div`
   justify-items: start;
   align-items: start;
 
-  svg {
+  svg: {
     grid-area: 1/1/2/2;
   }
 
@@ -64,3 +64,5 @@ export const InfoItem = styled.div`
     font-size: 1.4rem;
   }
 `;
+
+// #c92a2a

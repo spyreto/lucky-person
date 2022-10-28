@@ -3,25 +3,22 @@ import { ReactComponent as MailIcon } from "../../assets/mail-20.svg";
 import { ReactComponent as PhoneIcon } from "../../assets/call-20.svg";
 import { ReactComponent as LocationIcon } from "../../assets/location-20.svg";
 
+import { properFontColor } from "../../utils/utils";
+
 // Import styles
-import {
-  Container,
-  Header,
-  Name,
-  InfoContainer,
-  InfoItem,
-} from "./UserCard.styles";
+import { Container, Header, InfoContainer, InfoItem } from "./UserCard.styles";
 
 const UserCard = ({ data, color }) => {
-  const { imageUrl, name, email, phone, location } = data;
+  const { picture, name, email, phone, location } = data;
   const { street, city, state, country } = location;
+
+  const cardFontColor = properFontColor(color);
+  const fullName = `${name.first} ${name.last}`;
   return (
-    <Container color={color}>
+    <Container color={color} fontColor={cardFontColor}>
       <Header>
-        <img src={imageUrl}></img>
-        <h3>
-          {name.first} {name.last}
-        </h3>
+        <img src={picture.large} loading="lazy" alt={fullName}></img>
+        <h3>{fullName}</h3>
       </Header>
       <InfoContainer>
         <InfoItem>

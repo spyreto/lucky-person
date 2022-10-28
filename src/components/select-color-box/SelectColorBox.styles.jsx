@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { mainColorShade, fontColor } from "../../utils/styleVariables";
+import { mainColorShade, mainFontColor } from "../../utils/styleVariables";
 
 export const Container = styled.div`
   align-self: center;
@@ -31,7 +31,7 @@ export const ColorInputContainer = styled.div`
   // Color picker icon
   svg:last-of-type {
     cursor: pointer;
-    fill: ${fontColor};
+    fill: ${mainFontColor};
     margin-left: auto;
   }
 `;
@@ -39,7 +39,7 @@ export const ColorInputContainer = styled.div`
 export const ColorTextValue = styled.div`
   padding: 0 1.6rem;
   font-size: 1.6rem;
-  color: ${fontColor};
+  color: ${mainFontColor};
 `;
 
 export const Input = styled.input`
