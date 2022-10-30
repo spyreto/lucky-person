@@ -21,7 +21,8 @@ export const ColorInputContainer = styled.div`
   width: 28rem;
   padding: 0.8rem 1.2rem 0.8rem 1.6rem;
   border: 0.1rem solid ${mainColorShade};
-  border-radius: 0.4rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 0.1rem 0.5rem ${mainColorShade};
 
   // Drop icon
   svg:first-of-type {

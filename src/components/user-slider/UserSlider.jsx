@@ -1,15 +1,19 @@
 // React
-import { useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 // Import components
 import UserCard from "../user-card/UserCard";
+import Spinner from "../spinner/Spinner";
+
+// Portal modal
+import Modal from "../modal/Modal";
 
 // Import icons
 import { ReactComponent as PreviousIcon } from "../../assets/arrow-prev-24.svg";
 import { ReactComponent as NextIcon } from "../../assets/arrow-next-24.svg";
 
 // Import styles
-import { Container, Button } from "./UserSlider.styles";
+import { Container, LeftButton, RigthButton } from "./UserSlider.styles";
 
 const UserSlider = ({ color }) => {
   // Current data array index
@@ -46,22 +50,31 @@ const UserSlider = ({ color }) => {
     const initialFetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(
-          `https://randomuser.me/api/?page=1&results=24&seed=abc&inc=picture,name,email,phone,location`
-        ).then((res) => res.json());
-        setUserData(response.results);
+        // Fetch first page from api
+        const firstPage = await fetch(
+          `https://randomuser.me/api/?page=1&results=${pageSize}&seed=abc&inc=picture,name,email,phone,location`
+        )
+          .then((res) => res.json())
+          .then((resJson) => resJson.results);
+        // Fetch seconde page from api
+        const secondPage = await fetch(
+          `https://randomuser.me/api/?page=2&results=${pageSize}&seed=abc&inc=picture,name,email,phone,location`
+        )
+          .then((res) => res.json())
+          .then((resJson) => resJson.results);
+        // Merge the two results
+        setUserData([...firstPage, ...secondPage]);
       } catch (error) {
         setIsError(true);
       }
       setIsLoading(false);
     };
     initialFetchData();
-  }, []);
+  }, [pageSize]);
 
   // Next page fetch
   useEffect(() => {
     const fetchData = async () => {
-      setIsError(false);
       setisFecthingData(true);
       try {
         const response = await fetch(
@@ -149,26 +162,62 @@ const UserSlider = ({ color }) => {
     }
   };
 
-  // console.log(
-  //   `curP: ${prevFetchedPage}, currI: ${currentIndex}, nextP: ${nextPageToFetch}`
-  // );
+  const showCard = () => {
+    if (isLoading) return <Spinner />;
+
+    return (
+      <Fragment>
+        {currentIndex === 0 && isFirstPage ? (
+          <UserCard
+            isHidden={true}
+            data={userData[currentIndex]}
+            color={color}
+            cardType={"previous"}
+          />
+        ) : (
+          <UserCard
+            isHidden={false}
+            data={userData[currentIndex - 1]}
+            color={color}
+            cardType={"previous"}
+          />
+        )}
+        <UserCard
+          data={userData[currentIndex]}
+          color={color}
+          cardType={"current"}
+        />
+        <UserCard
+          data={userData[currentIndex + 1]}
+          color={color}
+          cardType={"next"}
+        />
+      </Fragment>
+    );
+  };
 
   return (
     <Container>
-      <Button
+      {/* Error modal */}
+      {isError && (
+        <Modal
+          title={"Error"}
+          message={
+            "Oops...Something went wrong. Please refresh the page and try again."
+          }
+        />
+      )}
+      <LeftButton
         onClick={prevButtonHandler}
         isHidden={currentIndex === 0 && isFirstPage}
+        disabled={isLoading || isError}
       >
         <PreviousIcon />
-      </Button>
-      {isLoading ? (
-        <p>skata</p>
-      ) : (
-        <UserCard data={userData[currentIndex]} color={color} />
-      )}
-      <Button onClick={nextButtonHandler}>
+      </LeftButton>
+      {showCard()}
+      <RigthButton onClick={nextButtonHandler} disabled={isLoading || isError}>
         <NextIcon />
-      </Button>
+      </RigthButton>
     </Container>
   );
 };

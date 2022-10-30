@@ -1,5 +1,7 @@
+// React
 import { useState } from "react";
 
+// Import components
 import SelectColorBox from "./components/select-color-box/SelectColorBox";
 import UserSlider from "./components/user-slider/UserSlider";
 

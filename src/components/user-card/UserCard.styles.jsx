@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mainColorShade } from "../../utils/styleVariables";
 
-export const Container = styled.div`
+const BaseCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,30 +9,27 @@ export const Container = styled.div`
   height: 38rem;
   padding: 2.4rem;
   background-color: ${(props) => props.color};
-  // linear-gradient(to left top, blue, red);
 
   box-shadow: 0 0.8rem 3rem ${mainColorShade};
   border-radius: 1.2rem;
   color: ${({ fontColor }) => fontColor};
-
-
   svg {
     fill: ${({ fontColor }) => fontColor};
 `;
 
 export const Header = styled.div`
-  margin-top: 2.4rem;
+  margin-top: 2rem;
   img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 7.5rem;
-    height: 7.5rem;
+    width: 10rem;
+    height: 10rem;
     border-radius: 50%;
   }
 
   h3 {
-    margin-top: 2.4rem;
+    margin-top: 2rem;
     font-size: 2rem;
     weight: 700;
   }
@@ -65,4 +62,18 @@ export const InfoItem = styled.div`
   }
 `;
 
-// #c92a2a
+export const CurrentCard = styled(BaseCard)``;
+
+export const PreviousCard = styled(BaseCard)`
+  visibility: ${({ isHidden }) => (isHidden ? "hidden" : "visible")};
+  transform: scale(0.7);
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
+`;
+export const NextCard = styled(BaseCard)`
+  transform: scale(0.7);
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
+`;
