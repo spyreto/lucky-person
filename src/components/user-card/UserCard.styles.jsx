@@ -1,5 +1,188 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { mainColorShade } from "../../utils/styleVariables";
+
+const animationDuration = "0.8s";
+const animationTimingFun = "ease-out";
+
+const activeCardRotateIn = keyframes` {
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}`;
+
+const activeCardRotateOut = keyframes` {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}`;
+
+const flipCardRotateIn = keyframes` {
+  0% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}`;
+
+const flipCardRotateOut = keyframes` {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}`;
+
+const prevCardSlideBack650 = keyframes` {
+  0% {
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  100% {
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const activeCardSlideBack650 = keyframes` {
+  0% {
+    transform: translate(-80%, 0%) scale(0.8);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}`;
+
+const nextCardSlideBack650 = keyframes` {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const prevCardSlideIn650 = keyframes` {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const activeCardSlideIn650 = keyframes` {
+  0% {
+    transform: translate(80%, 0%) scale(0.8);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}`;
+
+const nextCardSlideIn650 = keyframes` {
+  0% {
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  100% {
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const prevCardSlideBack900 = keyframes` {
+  0% {
+    top: 50%;
+    left: -50%;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  100% {
+    top: 50%;
+    left: -50%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const activeCardSlideBack900 = keyframes` {
+  0% {
+    transform: translate(-100%, 0%) scale(0.8);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}`;
+
+const nextCardSlideBack900 = keyframes` {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    top: 50%;
+    left: 150%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const prevCardSlideIn900 = keyframes` {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    top: 50%;
+    left: -50%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
+
+const activeCardSlideIn900 = keyframes` {
+  0% {
+    transform: translate(100%, 0%) scale(0.8);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}`;
+
+const nextCardSlideIn900 = keyframes` {
+  0% {
+    top: 50%;
+    left: 150%;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  100% {
+    top: 50%;
+    left: 150%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}`;
 
 const BaseCard = styled.div`
   display: flex;
@@ -62,18 +245,130 @@ export const InfoItem = styled.div`
   }
 `;
 
-export const CurrentCard = styled(BaseCard)``;
+export const FlipCardBack = styled.div`
+  position: absolute;
+  background-color: #2980b9;
+  z-index: -1;
+  width: 24rem;
+  height: 38rem;
+
+  &.forward {
+    @media screen and (max-width: 649px) {
+      animation: ${flipCardRotateIn} ${animationDuration} ${animationTimingFun}
+        forwards;
+    }
+  }
+
+  &.backward {
+    @media screen and (max-width: 649px) {
+      animation: ${flipCardRotateOut} ${animationDuration} ${animationTimingFun}
+        forwards;
+    }
+  }
+`;
+
+export const ActiveCard = styled(BaseCard)`
+  &.forward {
+    @media screen and (max-width: 649px) {
+      animation: ${activeCardRotateIn} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+    @media screen and (min-width: 650px) {
+      animation: ${activeCardSlideIn650} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+    @media screen and (min-width: 900px) {
+      animation: ${activeCardSlideIn900} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+  }
+
+  &.backward {
+    @media screen and (max-width: 649px) {
+      animation: ${activeCardRotateOut} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+    @media screen and (min-width: 650px) {
+      animation: ${activeCardSlideBack650} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+    @media screen and (min-width: 900px) {
+      animation: ${activeCardSlideBack900} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+  }
+`;
 
 export const PreviousCard = styled(BaseCard)`
+  display: none;
   visibility: ${({ isHidden }) => (isHidden ? "hidden" : "visible")};
-  transform: scale(0.7);
-  @media screen and (max-width: 800px) {
-    display: none;
+  position: absolute;
+  z-index: -1;
+
+  @media screen and (min-width: 650px) {
+    display: flex;
+  }
+
+  &.forward {
+    @media screen and (min-width: 650px) {
+      animation: ${prevCardSlideIn650} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+
+    @media screen and (min-width: 900px) {
+      animation: ${prevCardSlideIn900} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+  }
+
+  &.backward {
+    @media screen and (min-width: 650px) {
+      animation: ${prevCardSlideBack650} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+
+    @media screen and (min-width: 900px) {
+      animation: ${prevCardSlideBack900} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
   }
 `;
 export const NextCard = styled(BaseCard)`
-  transform: scale(0.7);
-  @media screen and (max-width: 800px) {
-    display: none;
+  display: none;
+  position: absolute;
+  z-index: -1;
+  transform: translate(-50%, -50%) scale(0.8);
+
+  @media screen and (min-width: 650px) {
+    display: flex;
+    top: 50%;
+    left: 80%;
+  }
+
+  @media screen and (min-width: 900px) {
+    top: 50%;
+    left: 150%;
+  }
+
+  &.forward {
+    @media screen and (min-width: 650px) {
+      animation: ${nextCardSlideIn650} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+    @media screen and (min-width: 900px) {
+      animation: ${nextCardSlideIn900} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+  }
+
+  &.backward {
+    @media screen and (min-width: 650px) {
+      animation: ${nextCardSlideBack650} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
+    @media screen and (min-width: 900px) {
+      animation: ${nextCardSlideBack900} ${animationDuration}
+        ${animationTimingFun} forwards;
+    }
   }
 `;

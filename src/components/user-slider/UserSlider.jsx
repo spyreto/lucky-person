@@ -30,6 +30,10 @@ const UserSlider = ({ color }) => {
   // Holds the fetched data
   const [userData, setUserData] = useState([]);
 
+  const [isBtnDelayed, setIsBtnDelayed] = useState(false);
+
+  const [slideType, setSlideType] = useState("");
+
   // Loading indicators
   const [isFecthingData, setisFecthingData] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,8 +46,18 @@ const UserSlider = ({ color }) => {
   // indicates the value at which the download of the next page should start
   const maxUserDataIndex = 20;
   // indicates the values at which the data array (userData) should be updated
-  const nextPageIndex = 24;
+  const nextPageIndex = 23;
   const prevPageIndex = -1;
+
+  // useEffect(() => {
+  //   setIsBtnDelayed(true);
+  //   let delayBtn = setInterval(() => {
+  //     setIsBtnDelayed(false);
+  //   }, 0);
+  //   return () => {
+  //     clearInterval(delayBtn);
+  //   };
+  // }, [currentIndex]);
 
   // Initial fetch
   useEffect(() => {
@@ -97,10 +111,12 @@ const UserSlider = ({ color }) => {
     // checks not to go below 0 index
     if (isFirstPage && newIndex > 0) {
       setCurrentIndex(newIndex);
+      setSlideType("backward");
     } // Checks the new index reached the value
     // at which the download of the previous page should start
     else if (newIndex === minUserDataIndex) {
       setCurrentIndex(newIndex);
+      setSlideType("backward");
       // Updates the NextPageToFetch and PrevFetchedPage values
       if (prevFetchedPage < nextPageToFetch) {
         setNextPageToFetch(prevFetchedPage - 1);
@@ -119,11 +135,13 @@ const UserSlider = ({ color }) => {
           setIsFirstPage(true);
         }
         setCurrentIndex(newIndex + pageSize);
+        setSlideType("backward");
         // Update the data array of users
         // Keeps the nearest half of the previous state of userData
         setUserData([...nextFetchedPageData, ...userData.slice(0, pageSize)]);
       }
     } else {
+      setSlideType("backward");
       setCurrentIndex(newIndex);
     }
   };
@@ -134,6 +152,7 @@ const UserSlider = ({ color }) => {
     // checks the new index reached the value
     // at which the download of the next page should start
     if (newIndex === maxUserDataIndex) {
+      setSlideType("forward");
       setCurrentIndex(newIndex);
       // Updates the NextPageToFetch and PrevFetchedPage values
       if (prevFetchedPage > nextPageToFetch && nextPageToFetch > 0) {
@@ -154,10 +173,12 @@ const UserSlider = ({ color }) => {
         }
         // Update the data array of users
         // Keeps the nearest half of the previous state of userData
+        setSlideType("forward");
         setCurrentIndex(newIndex - pageSize);
         setUserData([...nextFetchedPageData, ...userData.slice(0, pageSize)]);
       }
     } else {
+      setSlideType("forward");
       setCurrentIndex(newIndex);
     }
   };
@@ -173,6 +194,7 @@ const UserSlider = ({ color }) => {
             data={userData[currentIndex]}
             color={color}
             cardType={"previous"}
+            className={slideType}
           />
         ) : (
           <UserCard
@@ -180,17 +202,23 @@ const UserSlider = ({ color }) => {
             data={userData[currentIndex - 1]}
             color={color}
             cardType={"previous"}
+            slideType={slideType}
+            key={currentIndex - 1}
           />
         )}
         <UserCard
           data={userData[currentIndex]}
           color={color}
-          cardType={"current"}
+          cardType={"active"}
+          slideType={slideType}
+          key={currentIndex}
         />
         <UserCard
           data={userData[currentIndex + 1]}
           color={color}
           cardType={"next"}
+          slideType={slideType}
+          key={currentIndex + 1}
         />
       </Fragment>
     );
@@ -210,12 +238,15 @@ const UserSlider = ({ color }) => {
       <LeftButton
         onClick={prevButtonHandler}
         isHidden={currentIndex === 0 && isFirstPage}
-        disabled={isLoading || isError}
+        disabled={isLoading || isError || isBtnDelayed}
       >
         <PreviousIcon />
       </LeftButton>
       {showCard()}
-      <RigthButton onClick={nextButtonHandler} disabled={isLoading || isError}>
+      <RigthButton
+        onClick={nextButtonHandler}
+        disabled={isLoading || isError || isBtnDelayed}
+      >
         <NextIcon />
       </RigthButton>
     </Container>
