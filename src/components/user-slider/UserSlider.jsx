@@ -16,6 +16,8 @@ import { ReactComponent as NextIcon } from "../../assets/arrow-next-24.svg";
 import { Container, LeftButton, RigthButton } from "./UserSlider.styles";
 
 const UserSlider = ({ color }) => {
+  const [index, setIndex] = useState(0);
+
   // Current data array index
   const [currentIndex, setCurrentIndex] = useState(0);
   // Previous fetched data page from api
@@ -29,8 +31,6 @@ const UserSlider = ({ color }) => {
   const [nextFetchedPageData, setNextFetchedPageData] = useState([]);
   // Holds the fetched data
   const [userData, setUserData] = useState([]);
-
-  const [isBtnDelayed, setIsBtnDelayed] = useState(false);
 
   const [slideType, setSlideType] = useState("");
 
@@ -47,17 +47,7 @@ const UserSlider = ({ color }) => {
   const maxUserDataIndex = 20;
   // indicates the values at which the data array (userData) should be updated
   const nextPageIndex = 23;
-  const prevPageIndex = -1;
-
-  // useEffect(() => {
-  //   setIsBtnDelayed(true);
-  //   let delayBtn = setInterval(() => {
-  //     setIsBtnDelayed(false);
-  //   }, 0);
-  //   return () => {
-  //     clearInterval(delayBtn);
-  //   };
-  // }, [currentIndex]);
+  const prevPageIndex = 0;
 
   // Initial fetch
   useEffect(() => {
@@ -107,9 +97,10 @@ const UserSlider = ({ color }) => {
 
   // Previous card button handler
   const prevButtonHandler = () => {
+    setIndex(index - 1);
     const newIndex = currentIndex - 1;
     // checks not to go below 0 index
-    if (isFirstPage && newIndex > 0) {
+    if (isFirstPage && newIndex > -1) {
       setCurrentIndex(newIndex);
       setSlideType("backward");
     } // Checks the new index reached the value
@@ -148,6 +139,7 @@ const UserSlider = ({ color }) => {
 
   // Next card button handler
   const nextButtonHandler = () => {
+    setIndex(index + 1);
     const newIndex = currentIndex + 1;
     // checks the new index reached the value
     // at which the download of the next page should start
@@ -224,6 +216,11 @@ const UserSlider = ({ color }) => {
     );
   };
 
+  // console.log(`index: ${index}`);
+  // console.log(
+  //   `curIndex: ${currentIndex}, prevPage: ${prevFetchedPage}, nexPtFetch: ${nextPageToFetch}`
+  // );
+
   return (
     <Container>
       {/* Error modal */}
@@ -238,15 +235,12 @@ const UserSlider = ({ color }) => {
       <LeftButton
         onClick={prevButtonHandler}
         isHidden={currentIndex === 0 && isFirstPage}
-        disabled={isLoading || isError || isBtnDelayed}
+        disabled={isLoading || isError}
       >
         <PreviousIcon />
       </LeftButton>
-      {showCard()}
-      <RigthButton
-        onClick={nextButtonHandler}
-        disabled={isLoading || isError || isBtnDelayed}
-      >
+      {!isError && showCard()}
+      <RigthButton onClick={nextButtonHandler} disabled={isLoading || isError}>
         <NextIcon />
       </RigthButton>
     </Container>
