@@ -1,7 +1,14 @@
+// React
+import { useMemo } from "react";
+
 // Import icons
 import { ReactComponent as MailIcon } from "../../assets/mail-20.svg";
 import { ReactComponent as PhoneIcon } from "../../assets/call-20.svg";
 import { ReactComponent as LocationIcon } from "../../assets/location-20.svg";
+
+// Utlis
+// Returns the appropriate contrast color based on given bg color
+import { properFontColor, colorShade, colorTint } from "../../utils/utils";
 
 // Import styles
 import {
@@ -33,8 +40,22 @@ const UserCard = ({ cardType, isHidden, slideType, color, data }) => {
   const { street, city, state, country } = location;
   const fullName = `${name.first} ${name.last}`;
 
+  // Returns a memoized font color value based on selected color
+  const fontColor = useMemo(() => properFontColor(color), [color]);
+
+  // Returns a memoized font color value based on selected color
+  const tint = useMemo(() => colorTint(color), [color]);
+  const shade = useMemo(() => colorShade(color), [color]);
+
   return (
-    <Card isHidden={isHidden} className={slideType} color={color}>
+    <Card
+      isHidden={isHidden}
+      className={slideType}
+      color={color}
+      fontColor={fontColor}
+      tint={tint}
+      shade={shade}
+    >
       <Name>
         <img src={picture.large} loading="lazy" alt={fullName}></img>
         <h3>{fullName}</h3>

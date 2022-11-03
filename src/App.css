@@ -2,15 +2,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2.4rem;
-  gap: 4.8rem;
+  margin: 1.2rem;
+  gap: 2.4rem;
 }
 
 h1 {
   margin-top: 3.6rem;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.4rem;
   /* Make contrast with bg color #f8f9fa*/
   color: #112a46;
   letter-spacing: 0.075rem;
+}
+
+@media screen and (min-width: 24em) {
+  .App {
+    gap: 3.2rem;
+  }
+  h1 {
+    margin-top: 4.8rem;
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .App {
+    margin: 2.4rem;
+    gap: 4.8rem;
+  }
+  h1 {
+    margin-top: 3.6rem;
+    font-size: 3.6rem;
+  }
 }

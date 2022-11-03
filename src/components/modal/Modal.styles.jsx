@@ -18,7 +18,8 @@ export const Backdrop = styled.div`
 export const Container = styled.div`
   position: fixed;
   top: 30vh;
-  left: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 80%;
   z-index: 10;
   overflow: hidden;
@@ -27,6 +28,14 @@ export const Container = styled.div`
   box-shadow: 0 0.8rem 3rem rgba(0, 0, 0, 0.26);
   border-radius: 1.2rem;
   color: ${mainFontColor};
+
+  @media screen and (min-width: 40em) {
+    max-width: 45rem;
+  }
+
+  @media screen and (min-width: 900px) {
+    max-width: 60rem;
+  }
 `;
 
 export const Header = styled.div`

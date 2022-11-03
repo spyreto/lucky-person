@@ -11,6 +11,9 @@ export const Container = styled.div`
 
 export const Label = styled.label`
   font-size: 1.6rem;
+  @media screen and (min-width: 40em) {
+    font-size: 2rem;
+  }
 `;
 
 export const ColorInputContainer = styled.div`
@@ -18,7 +21,7 @@ export const ColorInputContainer = styled.div`
   display: flex;
   align-items: center;
   height: 5.6rem;
-  width: 28rem;
+  width: 24rem;
   padding: 0.8rem 1.2rem 0.8rem 1.6rem;
   border: 0.1rem solid ${mainColorShade};
   border-radius: 1.2rem;
@@ -35,12 +38,24 @@ export const ColorInputContainer = styled.div`
     fill: ${mainFontColor};
     margin-left: auto;
   }
+
+  @media screen and (min-width: 24em) {
+    width: 28rem;
+  }
+
+  @media screen and (min-width: 40em) {
+    width: 32rem;
+  }
 `;
 
 export const ColorTextValue = styled.div`
   padding: 0 1.6rem;
   font-size: 1.6rem;
   color: ${mainFontColor};
+
+  @media screen and (min-width: 40em) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const Input = styled.input`

@@ -7,16 +7,26 @@ const sRGBtoLin = (colorChannel) => {
   }
 };
 
+// Ρeturns an array of separated decimal color values
+const hexColorToDec = (hexColor) => {
+  const hexColorArray = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
+    hexColor
+  );
+  return [
+    parseInt(hexColorArray[1], 16),
+    parseInt(hexColorArray[2], 16),
+    parseInt(hexColorArray[3], 16),
+  ];
+};
+
 // Returns the lightness of a given color
 const colorLightness = (hexColor) => {
-  // Ρeturns an arraluminance of separated hex color values
-  const hexColorArraluminance =
-    /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexColor);
+  const colorArray = hexColorToDec(hexColor);
 
-  // Convert to decimal
-  const vR = parseInt(hexColorArraluminance[1], 16) / 255;
-  const vG = parseInt(hexColorArraluminance[2], 16) / 255;
-  const vB = parseInt(hexColorArraluminance[3], 16) / 255;
+  // Convert to linear
+  const vR = colorArray[0] / 255;
+  const vG = colorArray[1] / 255;
+  const vB = colorArray[2] / 255;
 
   // Color luminance
   const luminance =
@@ -39,4 +49,20 @@ const colorLightness = (hexColor) => {
 export const properFontColor = (color) => {
   const lightness = colorLightness(color);
   return lightness > 50.0 ? "#000000" : "#FFFFFF";
+};
+
+// Returns given color tint
+export const colorShade = (hexColor) => {
+  const shadeFactor = 0.1;
+  const colorArray = hexColorToDec(hexColor);
+
+  return colorArray.map((i) => Math.trunc(i * (1 - shadeFactor)));
+};
+
+// Returns given color shade
+export const colorTint = (hexColor) => {
+  const tintFactor = 0.1;
+  const colorArray = hexColorToDec(hexColor);
+
+  return colorArray.map((i) => Math.trunc(i + (255 - i) * tintFactor));
 };

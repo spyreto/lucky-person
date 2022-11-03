@@ -31,13 +31,17 @@ const UserSlider = ({ color }) => {
   const [nextFetchedPageData, setNextFetchedPageData] = useState([]);
   // Holds the fetched data
   const [userData, setUserData] = useState([]);
-
+  // Holds the direction of  slide-carousel (backwards or forwards)
   const [slideType, setSlideType] = useState("");
 
   // Loading indicators
   const [isFecthingData, setisFecthingData] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+
+  // Touch event values
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   // Τhe size of the page to be Fetched
   const pageSize = 12;
@@ -175,6 +179,25 @@ const UserSlider = ({ color }) => {
     }
   };
 
+  // Functions for swiping on touch in mobile devices
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 100) {
+      nextButtonHandler();
+    }
+
+    if (!(currentIndex === 0 && isFirstPage) && touchStart - touchEnd < -100) {
+      prevButtonHandler();
+    }
+  };
+
   const showCard = () => {
     if (isLoading) return <Spinner />;
 
@@ -216,13 +239,12 @@ const UserSlider = ({ color }) => {
     );
   };
 
-  // console.log(`index: ${index}`);
-  // console.log(
-  //   `curIndex: ${currentIndex}, prevPage: ${prevFetchedPage}, nexPtFetch: ${nextPageToFetch}`
-  // );
-
   return (
-    <Container>
+    <Container
+      onTouchStart={(e) => handleTouchStart(e)}
+      onTouchEnd={(e) => handleTouchEnd(e)}
+      onTouchMove={(e) => handleTouchMove(e)}
+    >
       {/* Error modal */}
       {isError && (
         <Modal

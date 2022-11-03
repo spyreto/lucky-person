@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { mainColorShade } from "../../utils/styleVariables";
 
-const animationDuration = "0.8s";
+const animationDuration = "0.6s";
 const animationTimingFun = "ease-out";
 
 // Flip card animation max-width 649px
@@ -207,66 +207,88 @@ const BaseCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 24rem;
-  height: 38rem;
-  padding: 2.4rem;
+  width: 18rem;
+  height: 28rem;
+  padding: 1.6rem;
   background-color: ${(props) => props.color};
-  box-shadow: 0 0.8rem 3rem ${mainColorShade};
+  // background: linear-gradient(0.3turn, #9775da 20%, #e775da 40%, #9775aa 40%);
   border-radius: 1.2rem;
   color: ${({ fontColor }) => fontColor};
   svg {
     fill: ${({ fontColor }) => fontColor};
   }
 
-  // @media screen and (min-width: 400px) {
-  //   width: 260px;
-  //   height: 380px;
-  // }
-  // @media screen and (min-width: 650px) {
-  //   width: 280px;
-  //   height: 400px;
-  // }
-  // @media screen and (min-width: 650px) {
-  //   width: 300px;
-  //   height: 450px;
-  // }
+  @media screen and (min-width: 20em) {
+    width: 20rem;
+    height: 30rem;
+  }
+
+  @media screen and (min-width: 24em) {
+    width: 26rem;
+    height: 40rem;
+    padding: 2.4rem;
+  }
 `;
 
 export const Name = styled.div`
-  margin-top: 2rem;
+  margin-top: 1.2rem;
   img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 10rem;
-    height: 10rem;
+    width: 7.5rem;
+    height: 7.5rem;
     border-radius: 50%;
   }
 
   h3 {
-    margin-top: 2rem;
-    font-size: 2rem;
+    margin-top: 1.2rem;
+    font-size: 1.6rem;
     weight: 700;
+  }
+
+  @media screen and (min-width: 24em) {
+    margin-top: 1.8rem;
+    img {
+      width: 10rem;
+      height: 10rem;
+    }
+    h3 {
+      margin-top: 2.4rem;
+      font-size: 2rem;
+      weight: 700;
+    }
+  }
+
+  @media screen and (min-width: 40em) {
+    h3 {
+      font-size: 2.4rem;
+    }
   }
 `;
 
 // Conteiner for the rest of the information
 export const InfoContainer = styled.div`
-  margin-top: 2.4rem;
+  margin-top: 1.8rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 1.6rem;
+  gap: 1.2rem;
+
+  @media screen and (min-width: 24em) {
+    margin-top: 2.4rem;
+    gap: 1.6rem;
+  }
 `;
 
 // Info with svg style e.g. email
 export const InfoItem = styled.div`
   display: grid;
-  grid-template-columns: 2.4rem auto;
+  grid-template-columns: 1.8rem auto;
   grid-template-rows: 1fr auto;
-  column-gap: 1.2rem;
+  column-gap: 0.8rem;
   justify-items: start;
-  align-items: start;
+  align-items: center;
 
   svg: {
     grid-area: 1/1/2/2;
@@ -275,40 +297,51 @@ export const InfoItem = styled.div`
   span {
     word-break: break-word;
     grid-area: 1/2/3/3;
-    font-size: 1.4rem;
+    font-size: 1rem;
+  }
+
+  @media screen and (min-width: 24em) {
+    grid-template-columns: 2.4rem auto;
+    column-gap: 1.2rem;
+    span {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media screen and (min-width: 40em) {
+    span {
+      font-size: 1.4rem;
+    }
   }
 `;
 
 // Active card style - (inherits the base style)
 export const ActiveCard = styled(BaseCard)`
+  box-shadow: 0 0.8rem 3rem ${mainColorShade};
   perspective: 80rem;
   transform-style: preserve-3d;
 
   &.forward {
-    @media screen and (max-width: 649px) {
-      animation: ${activeCardRotateIn} ${animationDuration}
-        ${animationTimingFun} forwards;
-    }
-    @media screen and (min-width: 650px) {
+    animation: ${activeCardRotateIn} ${animationDuration} ${animationTimingFun}
+      forwards;
+    @media screen and (min-width: 40em) {
       animation: ${activeCardSlideIn650} ${animationDuration}
         ${animationTimingFun} forwards;
     }
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 56em) {
       animation: ${activeCardSlideIn900} ${animationDuration}
         ${animationTimingFun} forwards;
     }
   }
 
   &.backward {
-    @media screen and (max-width: 649px) {
-      animation: ${activeCardRotateOut} ${animationDuration}
-        ${animationTimingFun} forwards;
-    }
-    @media screen and (min-width: 650px) {
+    animation: ${activeCardRotateOut} ${animationDuration} ${animationTimingFun}
+      forwards;
+    @media screen and (min-width: 40em) {
       animation: ${activeCardSlideBack650} ${animationDuration}
         ${animationTimingFun} forwards;
     }
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 56em) {
       animation: ${activeCardSlideBack900} ${animationDuration}
         ${animationTimingFun} forwards;
     }
@@ -321,44 +354,44 @@ export const PreviousCard = styled(BaseCard)`
   visibility: ${({ isHidden }) => (isHidden ? "hidden" : "visible")};
   position: absolute;
 
-  @media screen and (min-width: 650px) {
+  @media screen and (min-width: 40em) {
     display: flex;
+    box-shadow: 0 0.4rem 1.2rem ${mainColorShade};
     top: 50%;
     left: 20%;
     transform: translate(-50%, -50%) scale(0.8);
   }
 
-  @media screen and (min-width: 900px) {
-    top: 50%;
+  @media screen and (min-width: 56em) {
     left: 50%;
   }
 
   &.forward {
     display: flex;
-    @media screen and (max-width: 649px) {
-      z-index: 5;
-      animation: ${prevCardRotateIn} ${animationDuration} ${animationTimingFun}
-        forwards;
-    }
-    @media screen and (min-width: 650px) {
+    z-index: 5;
+    animation: ${prevCardRotateIn} ${animationDuration} ${animationTimingFun}
+      forwards;
+
+    @media screen and (min-width: 40em) {
+      z-index: -1;
       animation: ${prevCardSlideIn650} ${animationDuration}
         ${animationTimingFun} forwards;
     }
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 56em) {
       animation: ${prevCardSlideIn900} ${animationDuration}
         ${animationTimingFun} forwards;
     }
   }
 
   &.backward {
-    @media screen and (min-width: 650px) {
+    @media screen and (min-width: 40em) {
       z-index: -1;
       animation: ${prevCardSlideBack650} ${animationDuration}
         ${animationTimingFun} forwards;
     }
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 56em) {
       animation: ${prevCardSlideBack900} ${animationDuration}
         ${animationTimingFun} forwards;
     }
@@ -371,24 +404,25 @@ export const NextCard = styled(BaseCard)`
   position: absolute;
   z-index: -1;
 
-  @media screen and (min-width: 650px) {
+  @media screen and (min-width: 40em) {
     display: flex;
+    box-shadow: 0 0.4rem 1.2rem ${mainColorShade};
     top: 50%;
     left: 80%;
     transform: translate(-50%, -50%) scale(0.8);
   }
 
-  @media screen and (min-width: 900px) {
-    top: 50%;
+  @media screen and (min-width: 56em) {
     left: 150%;
   }
 
   &.forward {
-    @media screen and (min-width: 650px) {
+    @media screen and (min-width: 40em) {
+      z-index: -1;
       animation: ${nextCardSlideIn650} ${animationDuration}
         ${animationTimingFun} forwards;
     }
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 56em) {
       animation: ${nextCardSlideIn900} ${animationDuration}
         ${animationTimingFun} forwards;
     }
@@ -396,16 +430,15 @@ export const NextCard = styled(BaseCard)`
 
   &.backward {
     display: flex;
-    @media screen and (max-width: 649px) {
-      z-index: 5;
-      animation: ${nextCardRotateOut} ${animationDuration} ${animationTimingFun}
-        forwards;
-    }
-    @media screen and (min-width: 650px) {
+    z-index: 5;
+    animation: ${nextCardRotateOut} ${animationDuration} ${animationTimingFun}
+      forwards;
+    @media screen and (min-width: 40em) {
+      z-index: -1;
       animation: ${nextCardSlideBack650} ${animationDuration}
         ${animationTimingFun} forwards;
     }
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: 56em) {
       animation: ${nextCardSlideBack900} ${animationDuration}
         ${animationTimingFun} forwards;
     }
