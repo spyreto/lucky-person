@@ -211,14 +211,6 @@ const BaseCard = styled.div`
   height: 28rem;
   padding: 1.6rem;
 
-  // Chrome 10-25, Safari 5.1-6
-  background: -webkit-linear-gradient(
-    135deg,
-    ${({ tint }) => tint} 10%,
-    ${({ color }) => color} 20% 85%,
-    ${({ shade }) => shade} 95%
-  );
-  // W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
   background: linear-gradient(
     135deg,
     ${({ tint }) => tint} 10%,

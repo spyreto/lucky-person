@@ -39,9 +39,8 @@ const UserSlider = ({ color }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  // Touch event values
+  // Touch event  starting touch value
   const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
 
   // Τhe size of the page to be Fetched
   const pageSize = 12;
@@ -103,6 +102,7 @@ const UserSlider = ({ color }) => {
   const prevButtonHandler = () => {
     setIndex(index - 1);
     const newIndex = currentIndex - 1;
+    console.log(`prev ${newIndex}`);
     // checks not to go below 0 index
     if (isFirstPage && newIndex > -1) {
       setCurrentIndex(newIndex);
@@ -145,6 +145,7 @@ const UserSlider = ({ color }) => {
   const nextButtonHandler = () => {
     setIndex(index + 1);
     const newIndex = currentIndex + 1;
+    console.log(`next ${newIndex}`);
     // checks the new index reached the value
     // at which the download of the next page should start
     if (newIndex === maxUserDataIndex) {
@@ -185,15 +186,13 @@ const UserSlider = ({ color }) => {
   };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
+    const touchEnd = e.targetTouches[0].clientX;
 
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 100) {
+    if (touchStart - touchEnd > 150) {
       nextButtonHandler();
     }
 
-    if (!(currentIndex === 0 && isFirstPage) && touchStart - touchEnd < -100) {
+    if (!(currentIndex === 0 && isFirstPage) && touchStart - touchEnd < -150) {
       prevButtonHandler();
     }
   };
@@ -240,11 +239,7 @@ const UserSlider = ({ color }) => {
   };
 
   return (
-    <Container
-      onTouchStart={(e) => handleTouchStart(e)}
-      onTouchEnd={(e) => handleTouchEnd(e)}
-      onTouchMove={(e) => handleTouchMove(e)}
-    >
+    <Container onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
       {/* Error modal */}
       {isError && (
         <Modal
