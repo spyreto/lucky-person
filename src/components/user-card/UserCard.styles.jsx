@@ -210,8 +210,22 @@ const BaseCard = styled.div`
   width: 18rem;
   height: 28rem;
   padding: 1.6rem;
-  background-color: ${(props) => props.color};
-  // background: linear-gradient(0.3turn, #9775da 20%, #e775da 40%, #9775aa 40%);
+
+  // Chrome 10-25, Safari 5.1-6
+  background: -webkit-linear-gradient(
+    135deg,
+    ${({ tint }) => tint} 10%,
+    ${({ color }) => color} 20% 85%,
+    ${({ shade }) => shade} 95%
+  );
+  // W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+
+  background: linear-gradient(
+    135deg,
+    ${({ tint }) => tint} 10%,
+    ${({ color }) => color} 20% 85%,
+    ${({ shade }) => shade} 95%
+  );
+
   border-radius: 1.2rem;
   color: ${({ fontColor }) => fontColor};
   svg {

@@ -56,7 +56,10 @@ export const colorShade = (hexColor) => {
   const shadeFactor = 0.1;
   const colorArray = hexColorToDec(hexColor);
 
-  return colorArray.map((i) => Math.trunc(i * (1 - shadeFactor)));
+  const shadeColorArray = colorArray.map((i) =>
+    Math.trunc(i * (1 - shadeFactor))
+  );
+  return `rgb(${shadeColorArray[0]}, ${shadeColorArray[1]}, ${shadeColorArray[2]})`;
 };
 
 // Returns given color shade
@@ -64,5 +67,9 @@ export const colorTint = (hexColor) => {
   const tintFactor = 0.1;
   const colorArray = hexColorToDec(hexColor);
 
-  return colorArray.map((i) => Math.trunc(i + (255 - i) * tintFactor));
+  const tintColorArray = colorArray.map((i) =>
+    Math.trunc(i + (255 - i) * tintFactor)
+  );
+
+  return `rgb(${tintColorArray[0]}, ${tintColorArray[1]}, ${tintColorArray[2]})`;
 };
