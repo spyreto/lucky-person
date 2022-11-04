@@ -20,6 +20,9 @@ import {
   InfoItem,
 } from "./UserCard.styles";
 
+// Import default color value (if local storage is empty)
+import { defaultCardColor } from "../../utils/styleVariables";
+
 export const CARD_TYPE_CLASSES = {
   previous: "previous",
   active: "active",
@@ -40,18 +43,22 @@ const UserCard = ({ cardType, isHidden, slideType, color, data }) => {
   const { street, city, state, country } = location;
   const fullName = `${name.first} ${name.last}`;
 
-  // Returns a memoized font color value based on selected color
-  const fontColor = useMemo(() => properFontColor(color), [color]);
+  // If the local storage value of color is empty
+  // returns the defined default color
+  const cardColor = color ? color : defaultCardColor;
 
   // Returns a memoized font color value based on selected color
-  const tint = useMemo(() => colorTint(color), [color]);
-  const shade = useMemo(() => colorShade(color), [color]);
+  const fontColor = useMemo(() => properFontColor(cardColor), [cardColor]);
+
+  // Returns a memoized font color value based on selected color
+  const tint = useMemo(() => colorTint(cardColor), [cardColor]);
+  const shade = useMemo(() => colorShade(cardColor), [cardColor]);
 
   return (
     <Card
       isHidden={isHidden}
       className={slideType}
-      color={color}
+      color={cardColor}
       fontColor={fontColor}
       tint={tint}
       shade={shade}

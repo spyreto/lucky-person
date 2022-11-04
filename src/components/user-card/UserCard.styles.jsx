@@ -222,8 +222,8 @@ const BaseCard = styled.div`
   background: linear-gradient(
     135deg,
     ${({ tint }) => tint} 10%,
-    ${({ color }) => color} 20% 85%,
-    ${({ shade }) => shade} 95%
+    ${({ color }) => color} 30% 60%,
+    ${({ shade }) => shade} 90%
   );
 
   border-radius: 1.2rem;
