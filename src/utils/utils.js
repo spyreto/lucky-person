@@ -51,7 +51,7 @@ export const properFontColor = (color) => {
   return lightness > 50.0 ? "#000000" : "#FFFFFF";
 };
 
-// Returns given color tint
+// Returns given shade
 export const colorShade = (hexColor) => {
   const shadeFactor = 0.1;
   const colorArray = hexColorToDec(hexColor);
@@ -62,7 +62,7 @@ export const colorShade = (hexColor) => {
   return `rgb(${shadeColorArray[0]}, ${shadeColorArray[1]}, ${shadeColorArray[2]})`;
 };
 
-// Returns given color shade
+// Returns given color color tint
 export const colorTint = (hexColor) => {
   const tintFactor = 0.1;
   const colorArray = hexColorToDec(hexColor);

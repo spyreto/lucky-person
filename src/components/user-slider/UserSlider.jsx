@@ -102,7 +102,6 @@ const UserSlider = ({ color }) => {
   const prevButtonHandler = () => {
     setIndex(index - 1);
     const newIndex = currentIndex - 1;
-    console.log(`prev ${newIndex}`);
     // checks not to go below 0 index
     if (isFirstPage && newIndex > -1) {
       setCurrentIndex(newIndex);
@@ -145,7 +144,6 @@ const UserSlider = ({ color }) => {
   const nextButtonHandler = () => {
     setIndex(index + 1);
     const newIndex = currentIndex + 1;
-    console.log(`next ${newIndex}`);
     // checks the new index reached the value
     // at which the download of the next page should start
     if (newIndex === maxUserDataIndex) {
@@ -190,9 +188,10 @@ const UserSlider = ({ color }) => {
 
     if (touchStart - touchEnd > 150) {
       nextButtonHandler();
-    }
-
-    if (!(currentIndex === 0 && isFirstPage) && touchStart - touchEnd < -150) {
+    } else if (
+      !(currentIndex === 0 && isFirstPage) &&
+      touchStart - touchEnd < -150
+    ) {
       prevButtonHandler();
     }
   };
@@ -204,6 +203,7 @@ const UserSlider = ({ color }) => {
       <Fragment>
         {currentIndex === 0 && isFirstPage ? (
           <UserCard
+            data-testid="prev-card"
             isHidden={true}
             data={userData[currentIndex]}
             color={color}
@@ -213,6 +213,7 @@ const UserSlider = ({ color }) => {
         ) : (
           <UserCard
             isHidden={false}
+            data-testid="active-card"
             data={userData[currentIndex - 1]}
             color={color}
             cardType={"previous"}
@@ -221,6 +222,7 @@ const UserSlider = ({ color }) => {
           />
         )}
         <UserCard
+          data-testid="next-card"
           data={userData[currentIndex]}
           color={color}
           cardType={"active"}

@@ -9,7 +9,7 @@ import { Backdrop, Container, Header, Content } from "./Modal.styles";
 
 const Modal = (props) => {
   return (
-    <Fragment>
+    <Fragment data-testid="modal">
       {ReactDOM.createPortal(
         //Creates background blur effect
         <Backdrop />,
