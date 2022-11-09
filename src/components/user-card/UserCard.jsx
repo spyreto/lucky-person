@@ -61,6 +61,7 @@ const UserCard = ({ cardType, isHidden, slideType, data }) => {
       fontColor={fontColor}
       tint={tint}
       shade={shade}
+      data-testid={cardType}
     >
       <Header>
         <img src={picture.large} loading="lazy" alt={fullName}></img>

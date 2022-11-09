@@ -1,6 +1,3 @@
-// expect length of user array
-// expect toHaveStyle
-
 import { render, screen } from "../../test-utils/testing-library-utils";
 import UserCard from "./UserCard";
 
@@ -39,6 +36,7 @@ const mockUserdData = {
 
 describe("UserCard component", () => {
   test("Active card", () => {
+    // Arrange
     render(
       <UserCard
         cardType="active"
@@ -48,6 +46,7 @@ describe("UserCard component", () => {
       />
     );
 
+    // Assert
     //User image
     const userImage = screen.getByAltText("Laura Woods");
     expect(userImage).toBeVisible();

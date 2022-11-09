@@ -16,8 +16,6 @@ import { ReactComponent as NextIcon } from "../../assets/arrow-next-24.svg";
 import { Container, LeftButton, RigthButton } from "./UserSlider.styles";
 
 const UserSlider = () => {
-  const [index, setIndex] = useState(0);
-
   // Current data array index
   const [currentIndex, setCurrentIndex] = useState(0);
   // Previous fetched data page from api
@@ -100,7 +98,6 @@ const UserSlider = () => {
 
   // Previous card button handler
   const prevButtonHandler = () => {
-    setIndex(index - 1);
     const newIndex = currentIndex - 1;
     // checks not to go below 0 index
     if (isFirstPage && newIndex > -1) {
@@ -142,7 +139,6 @@ const UserSlider = () => {
 
   // Next card button handler
   const nextButtonHandler = () => {
-    setIndex(index + 1);
     const newIndex = currentIndex + 1;
     // checks the new index reached the value
     // at which the download of the next page should start
@@ -170,7 +166,7 @@ const UserSlider = () => {
         // Keeps the nearest half of the previous state of userData
         setSlideType("forward");
         setCurrentIndex(newIndex - pageSize);
-        setUserData([...nextFetchedPageData, ...userData.slice(0, pageSize)]);
+        setUserData([...userData.slice(-pageSize), ...nextFetchedPageData]);
       }
     } else {
       setSlideType("forward");
@@ -203,7 +199,6 @@ const UserSlider = () => {
       <Fragment>
         {currentIndex === 0 && isFirstPage ? (
           <UserCard
-            data-testid="prev-card"
             isHidden={true}
             data={userData[currentIndex]}
             cardType={"previous"}
@@ -212,7 +207,6 @@ const UserSlider = () => {
         ) : (
           <UserCard
             isHidden={false}
-            data-testid="prev-card"
             data={userData[currentIndex - 1]}
             cardType={"previous"}
             slideType={slideType}
@@ -220,14 +214,12 @@ const UserSlider = () => {
           />
         )}
         <UserCard
-          data-testid="active"
           data={userData[currentIndex]}
           cardType={"active"}
           slideType={slideType}
           key={currentIndex}
         />
         <UserCard
-          data-testid="next-card"
           data={userData[currentIndex + 1]}
           cardType={"next"}
           slideType={slideType}
