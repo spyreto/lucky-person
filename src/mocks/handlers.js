@@ -1,29 +1,6 @@
 import { rest } from "msw";
 import { usersData } from "./userData";
 
-const deepElementCopy = (i) => {
-  return {
-    picture: {
-      large: i.picture.large,
-    },
-    name: {
-      first: i.name.first,
-      last: i.name.last,
-    },
-    email: i.email,
-    phone: i.phone,
-    location: {
-      street: {
-        name: i.location.name,
-        number: i.street.number,
-      },
-      city: i.location.city,
-      state: i.location.state,
-      country: i.location.country,
-    },
-  };
-};
-
 // Mimics randomuser.me
 export const handlers = [
   rest.get("https://randomuser.me/api", (req, res, ctx) => {

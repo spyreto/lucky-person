@@ -1,18 +1,8 @@
-// expect length of user array
-// expect toHaveStyle
-
 // Overide testing-library/react
-import {
-  render,
-  screen,
-  within,
-  prettyDOM,
-} from "../../test-utils/testing-library-utils";
+import { render, screen } from "../../test-utils/testing-library-utils";
 
-import App from "../../App";
-
-import { rest } from "msw";
-import { server } from "../../mocks/server";
+// import { rest } from "msw";
+// import { server } from "../../mocks/server";
 
 import UserSlider from "./UserSlider";
 
@@ -47,14 +37,12 @@ describe("UserSlider component", () => {
     expect(notLoading).not.toBeInTheDocument();
   });
 
-  test("Handles error", async () => {
-    server.resetHandlers(
-      rest.get("https://randomuser.me/api", (req, res, ctx) =>
-        res(ctx.status(500))
-      )
-    );
-    render(<UserSlider />);
-
-    //  console.log(prettyDOM());
-  });
+  // test("Handles error", async () => {
+  //   server.resetHandlers(
+  //     rest.get("https://randomuser.me/api", (req, res, ctx) =>
+  //       res(ctx.status(500))
+  //     )
+  //   );
+  //   render(<UserSlider />);
+  // });
 });
