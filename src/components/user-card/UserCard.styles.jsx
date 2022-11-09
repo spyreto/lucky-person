@@ -236,7 +236,7 @@ const BaseCard = styled.div`
   }
 `;
 
-export const Name = styled.div`
+export const Header = styled.div`
   margin-top: 1.2rem;
   img {
     display: block;

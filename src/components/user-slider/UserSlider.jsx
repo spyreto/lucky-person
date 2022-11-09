@@ -15,7 +15,7 @@ import { ReactComponent as NextIcon } from "../../assets/arrow-next-24.svg";
 // Import styles
 import { Container, LeftButton, RigthButton } from "./UserSlider.styles";
 
-const UserSlider = ({ color }) => {
+const UserSlider = () => {
   const [index, setIndex] = useState(0);
 
   // Current data array index
@@ -206,32 +206,29 @@ const UserSlider = ({ color }) => {
             data-testid="prev-card"
             isHidden={true}
             data={userData[currentIndex]}
-            color={color}
             cardType={"previous"}
             className={slideType}
           />
         ) : (
           <UserCard
             isHidden={false}
-            data-testid="active-card"
+            data-testid="prev-card"
             data={userData[currentIndex - 1]}
-            color={color}
             cardType={"previous"}
             slideType={slideType}
             key={currentIndex - 1}
           />
         )}
         <UserCard
-          data-testid="next-card"
+          data-testid="active"
           data={userData[currentIndex]}
-          color={color}
           cardType={"active"}
           slideType={slideType}
           key={currentIndex}
         />
         <UserCard
+          data-testid="next-card"
           data={userData[currentIndex + 1]}
-          color={color}
           cardType={"next"}
           slideType={slideType}
           key={currentIndex + 1}

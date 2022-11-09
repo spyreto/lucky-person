@@ -1,21 +1,15 @@
-// fireEvent.click(element)
-// userEvent() npm i @testing-library/user-event
+import {
+  render,
+  screen,
+  fireEvent,
+} from "../../test-utils/testing-library-utils";
 
-import { render, screen } from "@testing-library/react";
-// import { fireEvent as domFireEvent } from "@testing-library/dom";
-// import userEvent from "@testing-library/user-event";
 import SelectColorBox from "./SelectColorBox";
 
 describe("SelectColorBox component", () => {
-  let mockColor;
-  const mockOnChangeHandler = jest.fn(mockColor);
-
   test("Initial conditions", () => {
-    mockColor = undefined;
     // Arrange
-    render(
-      <SelectColorBox color={mockColor} onChangeHandler={mockOnChangeHandler} />
-    );
+    render(<SelectColorBox />);
 
     // Assert
     //  Renders "Card background color:" as a text
@@ -43,17 +37,15 @@ describe("SelectColorBox component", () => {
     expect(colorTextValue).toBeVisible();
   });
 
-  test("The user has selected a color", () => {
-    // Unfortunately we can't use fireEvent  in an input of type: color
-    // not even the fireEvent from  the @testing-library/dom library;
-    mockColor = "#c39dd7";
+  test("The user has picked a color", () => {
     // Arrange
-    render(
-      <SelectColorBox color={mockColor} onChangeHandler={mockOnChangeHandler} />
-    );
+    render(<SelectColorBox />);
+
+    // Act
+    const colorInput = screen.getByLabelText(/card background color:/i);
+    fireEvent.input(colorInput, { target: { value: "#c39dd7" } });
 
     // Assert
-    const colorInput = screen.getByLabelText(/card background color:/i);
     expect(colorInput.value).toBe("#c39dd7");
 
     const colorTextValue = screen.getByText("#c39dd7");

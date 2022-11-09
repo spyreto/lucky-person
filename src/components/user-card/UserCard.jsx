@@ -1,27 +1,25 @@
 // React
-import { useMemo } from "react";
-
+import { useMemo, useContext } from "react";
+// Import context
+import { ColorContext } from "../../context/color-context";
 // Import icons
 import { ReactComponent as MailIcon } from "../../assets/mail-20.svg";
 import { ReactComponent as PhoneIcon } from "../../assets/call-20.svg";
 import { ReactComponent as LocationIcon } from "../../assets/location-20.svg";
-
 // Utlis
 // Returns the appropriate contrast color based on given bg color
 import { properFontColor, colorShade, colorTint } from "../../utils/utils";
-
+// Import default color value (if local storage is empty)
+import { defaultCardColor } from "../../utils/styleVariables";
 // Import styles
 import {
   PreviousCard,
   ActiveCard,
   NextCard,
-  Name,
+  Header,
   InfoContainer,
   InfoItem,
 } from "./UserCard.styles";
-
-// Import default color value (if local storage is empty)
-import { defaultCardColor } from "../../utils/styleVariables";
 
 export const CARD_TYPE_CLASSES = {
   previous: "previous",
@@ -36,7 +34,8 @@ const getCard = (cardType = CARD_TYPE_CLASSES.active) =>
     [CARD_TYPE_CLASSES.next]: NextCard,
   }[cardType]);
 
-const UserCard = ({ cardType, isHidden, slideType, color, data }) => {
+const UserCard = ({ cardType, isHidden, slideType, data }) => {
+  const { selectedColor } = useContext(ColorContext);
   const Card = getCard(cardType);
 
   const { picture, name, email, phone, location } = data;
@@ -45,7 +44,7 @@ const UserCard = ({ cardType, isHidden, slideType, color, data }) => {
 
   // If the local storage value of color is empty
   // returns the defined default color
-  const cardColor = color ? color : defaultCardColor;
+  const cardColor = selectedColor ? selectedColor : defaultCardColor;
 
   // Returns a memoized font color value based on selected color
   const fontColor = useMemo(() => properFontColor(cardColor), [cardColor]);
@@ -63,10 +62,10 @@ const UserCard = ({ cardType, isHidden, slideType, color, data }) => {
       tint={tint}
       shade={shade}
     >
-      <Name>
+      <Header>
         <img src={picture.large} loading="lazy" alt={fullName}></img>
         <h3>{fullName}</h3>
-      </Name>
+      </Header>
       <InfoContainer>
         <InfoItem>
           <MailIcon />

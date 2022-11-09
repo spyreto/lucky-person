@@ -9,3 +9,12 @@ describe("App component", () => {
     expect(heading).toBeInTheDocument();
   });
 });
+
+describe("Testing the entire app", () => {
+  test("Renders heading", () => {
+    render(<App />);
+    // Main heading
+    const heading = screen.getByRole("heading", { name: "My Clerks" });
+    expect(heading).toBeInTheDocument();
+  });
+});
