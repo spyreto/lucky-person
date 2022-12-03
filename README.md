@@ -6,30 +6,30 @@
 
 <!-- PROJECT -->
 <div align="center">
-  <h3 align="center">My Clerks</h3>
+  <h3 align="center"></h3>
   <br/>
   <img src="./public/logo192.png" width="192" height="192"/>
 </div>
 
  &nbsp;
-# My Clerks
+# Lucky Person
 
 <details>
     <summary>Table of Contents</summary>
     
-  - [My Clerks](#my-clerks)
+- [Lucky Person](#lucky-person)
   - [Overview](#overview)
     - [Project structure](#project-structure)
     - [Built With](#built-with)
     - [Requirements](#requirements)
     - [Installation](#installation)
-  - [Μain components](#ain-components)
+  - [Μain components](#μain-components)
     - [Modal](#modal)
     - [SelectColorBox](#selectcolorbox)
     - [UserSlider](#userslider)
     - [UserCard](#usercard)
   - [Fetching data logic](#fetching-data-logic)
-  - [Αpplication style](#pplication-style)
+  - [Αpplication style](#αpplication-style)
   - [Testing](#testing)
   - [Contact](#contact)
   
@@ -100,7 +100,7 @@ Main frameworks/libraries used to develop this project:
  
 1.	Enter inside the project:
     ```sh
-    cd my-clerks
+    cd lucky-person
     ```
 
 2.	Install the dependencies
@@ -178,7 +178,7 @@ Unit tests as well as and α mocking server were developed on the main elements 
 
 1.	Enter inside the project:
     ```sh
-    cd my-clerks
+    cd lucky-person
     ```
 
 2.	Run testing script
