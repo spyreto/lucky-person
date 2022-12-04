@@ -1,6 +1,6 @@
 {
-  "short_name": "My Clerks",
-  "name": "My Clerks application",
+  "short_name": "RCS",
+  "name": "React Card Slider",
   "icons": [
     {
       "src": "favicon.ico",

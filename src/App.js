@@ -9,7 +9,7 @@ import "./App.css";
 const App = () => {
   return (
     <div className="App">
-      <h1>Lucky Person</h1>
+      <h1>React Card Slider</h1>
       <ColorProvider>
         <SelectColorBox />
         <UserSlider />

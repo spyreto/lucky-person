@@ -1,24 +1,19 @@
 <div id="top"></div>
-<!-- My Clerks solution -->
 
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT -->
-<div align="center">
-  <h3 align="center"></h3>
-  <br/>
-  <img src="./public/logo192.png" width="192" height="192"/>
-</div>
 
  &nbsp;
-# Lucky Person
+# React Card Slider
 
 <details>
     <summary>Table of Contents</summary>
     
-- [Lucky Person](#lucky-person)
+- [React Card Slider](#react-card-slider)
   - [Overview](#overview)
+    - [Description](#description)
     - [Project structure](#project-structure)
     - [Built With](#built-with)
     - [Requirements](#requirements)
@@ -38,6 +33,17 @@
  &nbsp;
 
 ## Overview
+
+### Description
+
+A **mobile first**  [React](https://reactjs.org/) application which displays profile (data fetched from [Randomuser API](https://randomuser.me/)) cards in a nice, responsive and performant way. The user can also change the background colour of the cards, which persist upon full page reloads.
+
+The main aspects of [React](https://reactjs.org/) and Front-end development covered by this project are:
+* Unit tests
+* Animations
+* Memoization
+* React hooks
+* React portals
 
 ### Project structure
 ```sh
@@ -100,7 +106,7 @@ Main frameworks/libraries used to develop this project:
  
 1.	Enter inside the project:
     ```sh
-    cd lucky-person
+    cd react-card-slider
     ```
 
 2.	Install the dependencies
@@ -148,7 +154,7 @@ The user (profile) card component. It is child component of the  ```<UserSlider/
 
 ## Fetching data logic
 
-Τhe application has 24 profiles stored at any time. Each call to the API returns 12 profiles. Depending on the direction (forward or backward) with which the user itarates through the cards, the previous data is divided in two and the needed one merges with the new data.
+Τhe application uses a variant of the Longest Distance First (LDF) page replacement algorithm (virtual memory management). It has 24 profiles stored at any time. Each call to the API returns 12 profiles. Depending on the direction (forward or backward) with which the user itarates through the cards, the previous data is divided in two and the needed one merges with the new data.
 
 It is worth to mention that data fetching starts before the user reaches the last stored card. Ιn this way a smoother flow is ensured to the itaration (less spinners), also the user is not on the edge if he changes his itaration direction. A step by step explanation of the process follows:
 
@@ -178,7 +184,7 @@ Unit tests as well as and α mocking server were developed on the main elements 
 
 1.	Enter inside the project:
     ```sh
-    cd lucky-person
+    cd react-card-slider
     ```
 
 2.	Run testing script
