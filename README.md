@@ -7,6 +7,7 @@
 
  &nbsp;
 # React Card Slider
+<p align="left"><a href="https://chipper-alfajores-8a8f5d.netlify.app/">Live Preview</a></p>
 
 <details>
     <summary>Table of Contents</summary>
